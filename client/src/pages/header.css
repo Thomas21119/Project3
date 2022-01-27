@@ -1,0 +1,17 @@
+body {
+  height: 100%;
+}
+
+header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  background-color: pink;
+  float: top;
+}
+
+header ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
