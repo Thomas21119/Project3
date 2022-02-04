@@ -6,7 +6,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
     font-size: 24px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
@@ -51,7 +50,7 @@ form label {
     background-color: rgb(0, 247, 255);
 }
 
-#signupLink {
+.loginPage a {
     color: white;
 }
 

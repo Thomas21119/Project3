@@ -1,42 +1,94 @@
 import React, { useEffect, useState } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Link, useParams, Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useMutation,
+  useQuery,
+} from '@apollo/client';
+
 import Auth from '../utils/auth';
+import { LOGIN_USER } from '../utils/mutations';
 
+import './login.css';
 
-import "./login.css"
+const Login = (props) => {
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error }] = useMutation(LOGIN_USER);
 
-const client = new ApolloClient({
-    uri: '/graphql',
-    cache: new InMemoryCache(),
-  });
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+    try {
+      const { data } = await login({
+        variables: { email: formState.email, password: formState.password },
+      });
+      const token = data.login.token;
+      Auth.login(token);
+      if (data) {
+        <Redirect to="/calender" />;
+      } else {
+        <Redirect to="/calender" />;
+        console.log('fail');
+      }
+    } catch (e) {
+      console.error(e);
+    }
 
-const Login = () => {
-// if (Auth.loggedIn()) {
-//     console.log();
-// }
-    return (
-        <div className="loginPage">
-                <h2> Log In to Your Account </h2>
-            <form>
-                <section>
-                    <label for="email"> Email </label>
-                    <input type="email" name="email" id="email" placeholder="john.doe@gmail.com" />
-                </section>
-                <section>
-                    <label for="password"> Password </label>
-                    <input type="password" id="password" name="password" placeholder="Your Strong Password" />
-                </section>
-                <section>
-                    <input id="loginBtn" type="submit" value="Sign In" />
-                    <a id="signupLink" href="/signup"> Sign Up </a>
-                </section>
-                {/* if time do forgot password */}
-                {/* <a href="#@"> Forgot Password </a> */}
-            </form>
-        </div>
-    )
-}
+    setFormState({
+      email: '',
+      password: '',
+    });
+  };
 
-export default Login
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log(value);
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  return (
+    <div className="loginPage">
+      <h2> Log In to Your Account </h2>
+      <form onSubmit={handleFormSubmit}>
+        <section>
+          <label htmlFor="email"> Email </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="john.doe@gmail.com"
+            value={formState.email}
+            onChange={handleChange}
+          />
+        </section>
+        <section>
+          <label htmlFor="password"> Password </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Your Password"
+            value={formState.password}
+            onChange={handleChange}
+          />
+        </section>
+        <section>
+          <button type="submit"> Login </button>
+          <a href="/signup" id="signInLink">
+            Don't have an account? Sign Up
+          </a>
+        </section>
+        {/* if time do forgot password */}
+        {/* <a href="#@"> Forgot Password </a> */}
+      </form>
+    </div>
+  );
+};
+
+export default Login;
