@@ -30,18 +30,33 @@ export const ADD_EVENT = gql`
     $eventName: String!
     $eventDescription: String!
     $eventRepeating: String!
+    $eventYear: Int!
+    $eventMonth: String!
+    $eventDay: Int!
+    $eventHour: Int!
+    $eventMinute: Int!
   ) {
     addEvent(
       eventType: $eventType
       eventName: $eventName
       eventDescription: $eventDescription
       eventRepeating: $eventRepeating
+      eventYear: $eventYear
+      eventMonth: $eventMonth
+      eventDay: $eventDay
+      eventHour: $eventHour
+      eventMinute: $eventMinute
     ) {
       _id
       eventType
       eventName
       eventDescription
       eventRepeating
+      eventYear
+      eventMonth
+      eventDay
+      eventHour
+      eventMinute
     }
   }
 `;

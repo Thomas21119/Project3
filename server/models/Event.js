@@ -12,12 +12,32 @@ const eventSchema = new Schema({
   eventDescription: {
     type: String,
   },
-  eventRepeat: {
+  eventRepeating: {
     type: String,
     required: true,
   },
-  eventTime: {
+  eventYear: {
+    type: Number,
+    required: true,
+  },
+  eventMonth: {
     type: String,
+    required: true,
+  },
+  eventDay: {
+    type: Number,
+    required: true,
+  },
+  eventHour: {
+    type: Number,
+    required: true,
+  },
+  eventMinute: {
+    type: Number,
+    required: true,
+  },
+  userId: {
+    type: Number,
     required: true,
   },
 });

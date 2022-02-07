@@ -10,7 +10,7 @@ import { fromPromise, useMutation } from '@apollo/client';
 
 const AddItem = () => {
   const calenderArray = [];
-  const [storeCalenderObject, { error }] = useMutation(ADD_EVENT);
+  const [addEvent, { error }] = useMutation(ADD_EVENT);
 
   const [formState, setFormState] = useState({
     eventType: 'Class',
@@ -139,18 +139,8 @@ const AddItem = () => {
     event.preventDefault();
     console.log(formState);
     try {
-      const { data } = await storeCalenderObject({
-        variables: {
-          type: formState.eventType,
-          name: formState.eventName,
-          description: formState.eventDescription,
-          repeating: formState.eventRepeating,
-          year: formState.eventYear,
-          month: formState.eventMonth,
-          day: formState.eventDay,
-          hour: formState.eventHour,
-          minute: formState.eventMinute,
-        },
+      const { data } = await addEvent({
+        variables: { ...formState },
       });
     } catch (e) {
       console.error(e);
@@ -161,7 +151,6 @@ const AddItem = () => {
     calenderArray.push({
       ...formState,
     });
-    console.log(calenderArray);
   };
   return (
     <div className="addItemDiv">

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { useQuery } from '@apollo/client';
+import { QUERY_USER_EVENTS } from '../utils/queries';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 
@@ -10,10 +12,6 @@ const date = new Date();
 const y = date.getFullYear();
 const m = date.getMonth();
 const d = date.getDate();
-
-console.log(y);
-console.log(m);
-console.log(d);
 
 const localizer = momentLocalizer(moment);
 
@@ -54,6 +52,9 @@ const createItem = (args) => {
 };
 
 const Calender = () => {
+  // const [userEvents, { error }] = useQuery(QUERY_USER_EVENTS);
+  // console.log(userEvents);
+
   return (
     <div>
       {reactCalender()}

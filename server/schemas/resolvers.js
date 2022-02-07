@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { User, Event } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -10,6 +10,17 @@ const resolvers = {
     user: async (parent, { email }) => {
       return User.findOne({ email });
     },
+    events: async () => {
+      return Event.find();
+    },
+    userEvents: async (root, args, context) => {
+      console.log(context);
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('events');
+      } else {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+    },
   },
   Mutation: {
     addUser: async (parent, { email, password }) => {
@@ -18,7 +29,7 @@ const resolvers = {
 
       return { token, user };
     },
-    login: async (parent, { email, password }) => {
+    login: async (root, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -36,20 +47,42 @@ const resolvers = {
       return { token, user };
     },
     addEvent: async (
-      parent,
-      { type, name, description, repeat, time },
+      root,
+      {
+        eventType,
+        eventName,
+        eventDescription,
+        eventRepeating,
+        eventYear,
+        eventMonth,
+        eventDay,
+        eventHour,
+        eventMinute,
+      },
       context
     ) => {
       if (context.user) {
-        console.log(context);
         const event = await Event.create({
-          type,
-          name,
-          description,
-          repeat,
-          time,
+          eventType,
+          eventName,
+          eventDescription,
+          eventRepeating,
+          eventYear,
+          eventMonth,
+          eventDay,
+          eventHour,
+          eventMinute,
           userId: context.user._id,
         });
+        await User.findOneAndUpdate(
+          {
+            _id: context.user._id,
+          },
+          { $addToSet: { events: event._id } }
+        );
+        return event;
+      } else {
+        throw new AuthenticationError('Incorrect credentials');
       }
     },
   },
