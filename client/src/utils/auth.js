@@ -36,6 +36,8 @@ class AuthService {
     localStorage.removeItem('id_token');
     window.location.reload();
   }
+  storeCalenderObject() {}
+  getCalenderObject() {}
 }
 
 export default new AuthService();

@@ -4,16 +4,24 @@ import { useQuery } from '@apollo/client';
 import './header.css';
 
 const Header = () => {
+  const classesArray = [];
+  const returnClasses = (events) => {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].eventType == 'Class') {
+        classesArray.push(events[i]);
+      }
+    }
+  };
   return (
     <header>
       <ul>
-        <li> Class 1 </li>
-        <li> Class 2 </li>
-        <li> Class 3 </li>
-        <li> Class 4 </li>
-        <li> Class 5 </li>
+        {classesArray.map((element, key) => (
+          <li key={key}> {element} </li>
+        ))}
         <li>
-          <button> Calender </button>
+          <a href="/calender">
+            <button> Calender </button>
+          </a>
         </li>
       </ul>
     </header>

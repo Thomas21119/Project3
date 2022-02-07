@@ -11,30 +11,31 @@ const y = date.getFullYear();
 const m = date.getMonth();
 const d = date.getDate();
 
+console.log(y);
+console.log(m);
+console.log(d);
+
 const localizer = momentLocalizer(moment);
 
 const myEventsList = [
   {
     title: 'b efdihsjkhgfw vbs etdfxh gfc cn mhtfgcvydth fkjh',
-    start: new Date(y, m, d, 10, 30, 0, 0),
-    end: new Date(y, m, d, 13, 30, 0, 0),
-  },
-  {
-    title: 'b efdihsjkhgfw vbs etdfxh gfc cn mhtfgcvydth fkjh',
-    start: new Date(y, m, d, 10, 30, 0, 0),
-    end: new Date(y, m, d, 13, 30, 0, 0),
-  },
-  {
-    title: 'b efdihsjkhgfw vbs etdfxh gfc cn mhtfgcvydth fkjh',
-    start: new Date(y, m, d, 10, 30, 0, 0),
-    end: new Date(y, m, d, 13, 30, 0, 0),
-  },
-  {
-    title: 'b efdihsjkhgfw vbs etdfxh gfc cn mhtfgcvydth fkjh',
-    start: new Date(y, m, d, 10, 30, 0, 0),
-    end: new Date(y, m, d, 13, 30, 0, 0),
+    start: new Date(y, m, d, 10, 40, 0, 0),
+    end: new Date(y, m, d, 13, 50, 0, 0),
   },
 ];
+
+const onRecieveInfo = (events) => {
+  for (let i = 0; i < events.length; i++) {
+    let type = events[i].eventType;
+    let title = events[i].eventName;
+    let year = events[i].eventYear;
+    let month = events[i].eventMonth - 1;
+    let day = events[i].eventDay;
+    let hour = events[i].eventHour;
+    let minute = events[i].eventMinute;
+  }
+};
 
 const reactCalender = (prop) => (
   <div>

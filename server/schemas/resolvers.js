@@ -35,6 +35,23 @@ const resolvers = {
 
       return { token, user };
     },
+    addEvent: async (
+      parent,
+      { type, name, description, repeat, time },
+      context
+    ) => {
+      if (context.user) {
+        console.log(context);
+        const event = await Event.create({
+          type,
+          name,
+          description,
+          repeat,
+          time,
+          userId: context.user._id,
+        });
+      }
+    },
   },
 };
 

@@ -24,12 +24,24 @@ export const ADD_USER = gql`
   }
 `;
 
-// export const ADD_event = gql`
-//   mutation addEvent($eventType: String!, $eventName: String!, $eventDescription, $eventRepeating: String!)
-//     addEvent(eventType: $eventType, eventName: $eventName, eventDescription: $eventDescription, eventRepeating: $eventRepeating) {
-//       _id
-//       type
-//       name
-//       description
-//       repeating
-// }`;
+export const ADD_EVENT = gql`
+  mutation addEvent(
+    $eventType: String!
+    $eventName: String!
+    $eventDescription: String!
+    $eventRepeating: String!
+  ) {
+    addEvent(
+      eventType: $eventType
+      eventName: $eventName
+      eventDescription: $eventDescription
+      eventRepeating: $eventRepeating
+    ) {
+      _id
+      eventType
+      eventName
+      eventDescription
+      eventRepeating
+    }
+  }
+`;

@@ -29,7 +29,6 @@ const Login = (props) => {
       if (data) {
         <Redirect to="/calender" />;
       } else {
-        <Redirect to="/calender" />;
         console.log('fail');
       }
     } catch (e) {
@@ -55,7 +54,7 @@ const Login = (props) => {
   return (
     <div className="loginPage">
       <h2> Log In to Your Account </h2>
-      <form onSubmit={handleFormSubmit}>
+      <form className="loginForm" onSubmit={handleFormSubmit}>
         <section>
           <label htmlFor="email"> Email </label>
           <input
