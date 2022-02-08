@@ -1,22 +1,105 @@
 .signUpPage {
-    height: 100%;
+  height: 100%;
+  background-color: var(--prussianBlue);
 }
 
 .signUpPage h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 15%;
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: underline;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-family: var(--font);
+  font-weight: bold;
+  height: 15%;
+  text-decoration: none;
+  color: var(--silver);
 }
 
-form {
-    height: 85%;
+.signUpForm {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+  background-color: var(--prussianBlue);
+  width: 100%;
+  height: 85%;
+  color: white;
+}
+
+.signUpForm section {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  height: 15%;
+  width: 80%;
+}
+
+.signUpForm input {
+  width: 90%;
+  height: 50%;
+  border-radius: 20px;
+  text-align: center;
+  margin: 0 auto;
+  border: 2px solid gray;
+  background-color: var(--spanishGray);
+  font-family: var(--font);
+  color: white;
+}
+.signUpForm input::placeholder {
+  color: white;
+}
+
+.signUpForm label {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--silver);
+  font-family: var(--font);
+  width: 100%;
+}
+
+#signUpBtn {
+  background-color: var(--spanishGray);
+  border-radius: 20px;
+  color: white;
+  width: 30%;
+  height: 50%;
 }
 
 .signUpPage a {
-    color: white;
+  color: var(--silver);
+}
+
+h2 {
+  color: white;
+}
+
+.btnSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .signUpPage h2 {
+    font-size: 32px;
+  }
+  .signUpForm section label {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .signUpForm section input {
+    font-size: 20px;
+  }
+  #signUpBtn {
+    width: 50%;
+    height: 60px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  #signInLink {
+    font-size: 20px;
+  }
 }

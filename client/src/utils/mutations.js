@@ -31,7 +31,7 @@ export const ADD_EVENT = gql`
     $eventDescription: String!
     $eventRepeating: String!
     $eventYear: Int!
-    $eventMonth: String!
+    $eventMonth: Int!
     $eventDay: Int!
     $eventHour: Int!
     $eventMinute: Int!

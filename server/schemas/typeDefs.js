@@ -14,8 +14,8 @@ const typeDefs = gql`
     eventDescription: String
     eventRepeating: String
     userId: String
-    eventYear: String
-    eventMonth: String
+    eventYear: Int
+    eventMonth: Int
     eventDay: Int
     eventHour: Int
     eventMinute: Int
@@ -49,7 +49,7 @@ const typeDefs = gql`
       eventDescription: String
       eventRepeating: String
       eventYear: Int
-      eventMonth: String
+      eventMonth: Int
       eventDay: Int
       eventHour: Int
       eventMinute: Int

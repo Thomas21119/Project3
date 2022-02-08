@@ -21,7 +21,7 @@ const eventSchema = new Schema({
     required: true,
   },
   eventMonth: {
-    type: String,
+    type: Number,
     required: true,
   },
   eventDay: {
@@ -37,7 +37,7 @@ const eventSchema = new Schema({
     required: true,
   },
   userId: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

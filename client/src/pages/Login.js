@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, Redirect } from 'react-router-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useMutation,
-  useQuery,
-} from '@apollo/client';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 
 import Auth from '../utils/auth';
 import { LOGIN_USER } from '../utils/mutations';
@@ -15,11 +9,10 @@ import './login.css';
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login] = useMutation(LOGIN_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await login({
         variables: { email: formState.email, password: formState.password },
@@ -43,7 +36,6 @@ const Login = (props) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(value);
 
     setFormState({
       ...formState,
@@ -77,9 +69,12 @@ const Login = (props) => {
             onChange={handleChange}
           />
         </section>
-        <section>
-          <button type="submit"> Login </button>
-          <a href="/signup" id="signInLink">
+        <section className="btnSection">
+          <button type="submit" id="loginBtn">
+            {' '}
+            Login{' '}
+          </button>
+          <a href="/signup" id="signUpLink">
             Don't have an account? Sign Up
           </a>
         </section>

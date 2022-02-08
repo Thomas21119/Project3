@@ -19,11 +19,13 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  height: 90%;
+  justify-content: space-evenly;
 }
 
 .areaSection {
   width: 90%;
-  height: 20%;
+  height: 15%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -44,25 +46,106 @@
   text-decoration: underline;
 }
 
-.areaSection input {
+.areaSection input,
+.areaSection select {
   width: 40%;
   display: block;
   height: 20%;
+  border-radius: 20px;
+  background-color: var(--silver);
+  text-decoration: none;
 }
 
 .areaSection label {
   width: 40%;
   display: block;
-  height: 20%;
+  height: fit-content;
+  background-color: var(--silver);
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  color: var(--prussianBlue);
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 13px;
 }
 
-.areaSection select {
+/* .areaSection select {
   width: 40%;
   display: block;
   height: 20%;
-}
+  border-radius: 20px;
+} */
 
 #addItemSubmit {
   width: 60%;
   margin: 0 auto;
+}
+
+.timeSelect {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.timeSelect div {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.timeSelect div select {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 50%;
+  font-family: var(--font);
+}
+
+.timeSelect div label {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font);
+}
+
+#timeLabel {
+  font-family: var(--font);
+  margin-bottom: 10px;
+}
+
+#calenderLink {
+  width: 150px;
+  display: flex;
+  height: fit-content;
+  background-color: var(--silver);
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  color: var(--prussianBlue);
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 13px;
+  justify-content: center;
+}
+
+#calenderSubmitBtn {
+  width: 150px;
+  display: flex;
+  height: fit-content;
+  background-color: var(--silver);
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  color: var(--prussianBlue);
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 13px;
+  justify-content: center;
+}
+
+.linkSection {
+  display: flex;
+  justify-content: space-evenly;
 }

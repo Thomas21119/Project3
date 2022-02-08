@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { useQuery } from '@apollo/client';
 import { QUERY_USER_EVENTS } from '../utils/queries';
@@ -7,42 +7,17 @@ import moment from 'moment';
 
 import './calender.css';
 
-const date = new Date();
-
-const y = date.getFullYear();
-const m = date.getMonth();
-const d = date.getDate();
-
 const localizer = momentLocalizer(moment);
 
-const myEventsList = [
-  {
-    title: 'b efdihsjkhgfw vbs etdfxh gfc cn mhtfgcvydth fkjh',
-    start: new Date(y, m, d, 10, 40, 0, 0),
-    end: new Date(y, m, d, 13, 50, 0, 0),
-  },
-];
-
-const onRecieveInfo = (events) => {
-  for (let i = 0; i < events.length; i++) {
-    let type = events[i].eventType;
-    let title = events[i].eventName;
-    let year = events[i].eventYear;
-    let month = events[i].eventMonth - 1;
-    let day = events[i].eventDay;
-    let hour = events[i].eventHour;
-    let minute = events[i].eventMinute;
-  }
-};
+const myEventsList = [];
 
 const reactCalender = (prop) => (
-  <div>
+  <div className="reactCalender">
     <Calendar
       localizer={localizer}
       events={myEventsList}
       startAccessor="start"
       endAccessor="end"
-      style={{ height: 500 }}
     />
   </div>
 );
@@ -52,13 +27,37 @@ const createItem = (args) => {
 };
 
 const Calender = () => {
-  // const [userEvents, { error }] = useQuery(QUERY_USER_EVENTS);
-  // console.log(userEvents);
-
+  const { data } = useQuery(QUERY_USER_EVENTS);
+  console.log(data);
+  data.userEvents.events.pop();
+  if (data) {
+    data.userEvents.events.map((event, key) => {
+      // let type = event.eventType;
+      // let repeating = event.eventRepeating;
+      let name = event.eventName;
+      let year = event.eventYear;
+      let month = event.eventMonth;
+      let day = event.eventDay;
+      let hour = event.eventHour;
+      let minute = event.eventMinute;
+      const newObject = {
+        title: name,
+        start: new Date(year, month - 1, day, hour, minute, 0, 0),
+        end: new Date(year, month - 1, day, hour, minute, 0, 0),
+        key: key,
+      };
+      return myEventsList.push(newObject);
+    });
+  } else {
+    console.log('no Data');
+  }
   return (
-    <div>
+    <div className="calender">
       {reactCalender()}
-      <button onClick={createItem}> Add Item </button>
+      <button onClick={createItem} className="addItemBtn">
+        {' '}
+        Add Item{' '}
+      </button>
     </div>
   );
 };

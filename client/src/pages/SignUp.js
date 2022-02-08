@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useMutation,
-  useQuery,
-} from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 
 import './signup.css';
-
-const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache(),
-});
 
 const SignUp = () => {
   const [formState, setFormState] = useState({
@@ -36,7 +25,6 @@ const SignUp = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await addUser({
         variables: { ...formState },
@@ -55,7 +43,7 @@ const SignUp = () => {
           Success! You may now head <Link to="/">back to the homepage.</Link>
         </p>
       ) : (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} className="signUpForm">
           <section>
             <label htmlFor="email"> Email </label>
             <input
@@ -78,8 +66,11 @@ const SignUp = () => {
               onChange={handleChange}
             />
           </section>
-          <section>
-            <button type="submit"> SignUp </button>
+          <section className="btnSection">
+            <button type="submit" id="signUpBtn">
+              {' '}
+              Sign Up{' '}
+            </button>
             <a href="/" id="signInLink">
               Already have an account? Sign In{' '}
             </a>

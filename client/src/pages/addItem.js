@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import React, { useState } from 'react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
 import './addItem.css';
 
 import { ADD_EVENT } from '../utils/mutations';
-import Auth from '../utils/auth';
-import { fromPromise, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 const AddItem = () => {
   const calenderArray = [];
-  const [addEvent, { error }] = useMutation(ADD_EVENT);
+  const [addEvent] = useMutation(ADD_EVENT);
 
   const [formState, setFormState] = useState({
     eventType: 'Class',
@@ -18,17 +15,35 @@ const AddItem = () => {
     eventDescription: '',
     eventRepeating: 'Just Once',
     eventYear: 1922,
-    eventMonth: '1/January',
+    eventMonth: 1,
     eventDay: 1,
     eventHour: 1,
     eventMinute: 1,
   });
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(value);
     setFormState({
       ...formState,
       [name]: value,
+    });
+  };
+
+  const handleNumberChange = (event) => {
+    const { name, value } = event.target;
+    const numberValue = Number(value);
+    setFormState({
+      ...formState,
+      [name]: numberValue,
+    });
+  };
+
+  const handleMonthChange = (event) => {
+    const { name, value } = event.target;
+    const splitValue = value.split('/')[0];
+    const numberValue = Number(splitValue);
+    setFormState({
+      ...formState,
+      [name]: numberValue,
     });
   };
 
@@ -40,7 +55,8 @@ const AddItem = () => {
     }
     return (
       <div>
-        <select name="eventYear" id="eventYear" onChange={handleChange}>
+        <label for="eventYear"> Year: </label>
+        <select name="eventYear" id="eventYear" onChange={handleNumberChange}>
           {yearArray.map((element, key) => (
             <option value={element} key={key}>
               {element}
@@ -68,7 +84,9 @@ const AddItem = () => {
     ];
     return (
       <div>
-        <select onChange={handleChange} id="eventMonth">
+        <label for="eventMonth"> Month: </label>
+
+        <select onChange={handleMonthChange} id="eventMonth" name="eventMonth">
           {months.map((element, key) => (
             <option value={element} key={key}>
               {element}
@@ -86,7 +104,8 @@ const AddItem = () => {
     }
     return (
       <div>
-        <select id="eventDay" onChange={handleChange}>
+        <label for="eventDay"> Day: </label>
+        <select id="eventDay" name="eventDay" onChange={handleNumberChange}>
           {dayArray.map((element, key) => (
             <option value={element} key={key}>
               {element}
@@ -104,7 +123,8 @@ const AddItem = () => {
     }
     return (
       <div>
-        <select id="eventHour" onChange={handleChange}>
+        <label for="eventHour"> Hour: </label>
+        <select id="eventHour" name="eventHour" onChange={handleNumberChange}>
           {hoursArray.map((element, key) => (
             <option value={element} key={key}>
               {' '}
@@ -123,7 +143,12 @@ const AddItem = () => {
     }
     return (
       <div>
-        <select id="eventMinute" onChange={handleChange}>
+        <label for="eventMinute"> Minute: </label>
+        <select
+          id="eventMinute"
+          name="eventMinute"
+          onChange={handleNumberChange}
+        >
           {minuteArray.map((element, key) => (
             <option value={element} key={key}>
               {' '}
@@ -137,9 +162,8 @@ const AddItem = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
-      const { data } = await addEvent({
+      addEvent({
         variables: { ...formState },
       });
     } catch (e) {
@@ -151,6 +175,7 @@ const AddItem = () => {
     calenderArray.push({
       ...formState,
     });
+    console.log(calenderArray);
   };
   return (
     <div className="addItemDiv">
@@ -201,19 +226,20 @@ const AddItem = () => {
         </div>
 
         <div className="timeSelect">
-          <label> Time </label>
+          <label id="timeLabel"> Time </label>
           {loopYear()}
           {monthSelect()}
           {daySelect()}
-          <div>
-            {hourSelect()}
-            {minuteSelect()}
-          </div>
+          {hourSelect()}
+          {minuteSelect()}
         </div>
 
-        <div className="areaSection">
-          <a href="/calender"> Return Home </a>
-          <input id="addItemSubmit" type="submit" />
+        <div className="linkSection">
+          <a href="/calender" id="calenderLink">
+            {' '}
+            Return Home{' '}
+          </a>
+          <input id="addItemSubmit" type="submit" id="calenderSubmitBtn" />
         </div>
       </form>
     </div>

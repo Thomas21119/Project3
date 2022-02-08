@@ -40,24 +40,15 @@ export const QUERY_EVENTS = gql`
 `;
 
 export const QUERY_USER_EVENTS = gql`
-  query userEvents {
-    user {
+  query {
+    userEvents {
       events {
-        _id
-        email
-        password
-        events {
-          _id
-          eventName
-          eventType
-          eventDescription
-          eventRepeating
-          eventYear
-          eventMonth
-          eventDay
-          eventHour
-          eventMinute
-        }
+        eventName
+        eventYear
+        eventMonth
+        eventDay
+        eventHour
+        eventMinute
       }
     }
   }

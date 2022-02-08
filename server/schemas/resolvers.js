@@ -14,7 +14,6 @@ const resolvers = {
       return Event.find();
     },
     userEvents: async (root, args, context) => {
-      console.log(context);
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('events');
       } else {
