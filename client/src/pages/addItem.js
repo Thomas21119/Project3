@@ -163,7 +163,7 @@ const AddItem = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      addEvent({
+      await addEvent({
         variables: { ...formState },
       });
     } catch (e) {
@@ -239,7 +239,7 @@ const AddItem = () => {
             {' '}
             Return Home{' '}
           </a>
-          <input id="addItemSubmit" type="submit" id="calenderSubmitBtn" />
+          <input type="submit" id="calenderSubmitBtn" />
         </div>
       </form>
     </div>

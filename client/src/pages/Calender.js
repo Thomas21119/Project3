@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { useQuery } from '@apollo/client';
 import { QUERY_USER_EVENTS } from '../utils/queries';
@@ -9,13 +9,11 @@ import './calender.css';
 
 const localizer = momentLocalizer(moment);
 
-const myEventsList = [];
-
-const reactCalender = (prop) => (
+const ReactCalender = ({ muEvents }) => (
   <div className="reactCalender">
     <Calendar
       localizer={localizer}
-      events={myEventsList}
+      events={muEvents}
       startAccessor="start"
       endAccessor="end"
     />
@@ -28,32 +26,35 @@ const createItem = (args) => {
 
 const Calender = () => {
   const { data } = useQuery(QUERY_USER_EVENTS);
-  console.log(data);
-  data.userEvents.events.pop();
-  if (data) {
-    data.userEvents.events.map((event, key) => {
-      // let type = event.eventType;
-      // let repeating = event.eventRepeating;
-      let name = event.eventName;
-      let year = event.eventYear;
-      let month = event.eventMonth;
-      let day = event.eventDay;
-      let hour = event.eventHour;
-      let minute = event.eventMinute;
-      const newObject = {
-        title: name,
-        start: new Date(year, month - 1, day, hour, minute, 0, 0),
-        end: new Date(year, month - 1, day, hour, minute, 0, 0),
-        key: key,
-      };
-      return myEventsList.push(newObject);
-    });
-  } else {
-    console.log('no Data');
-  }
+
+  const muEvents = useMemo(() => {
+    return (
+      data?.userEvents?.events.map(
+        (
+          {
+            eventName: name,
+            eventYear: year,
+            eventMonth: month,
+            eventDay: day,
+            eventHour: hour,
+            eventMinute: minute,
+          },
+          key
+        ) => {
+          return {
+            title: name,
+            start: new Date(year, month - 1, day, hour, minute, 0, 0),
+            end: new Date(year, month - 1, day, hour, minute, 0, 0),
+            key: key,
+          };
+        }
+      ) || []
+    );
+  }, [data]);
+
   return (
     <div className="calender">
-      {reactCalender()}
+      <ReactCalender muEvents={muEvents} />
       <button onClick={createItem} className="addItemBtn">
         {' '}
         Add Item{' '}
